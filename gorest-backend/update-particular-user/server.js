@@ -1,7 +1,22 @@
 const express = require('express')
-const request = require('request');
 const cors = require('cors');
 const bodyParser = require('body-parser')
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://localhost:27017/Gorest", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+const userSchema = {
+    id: String,
+    name: String,
+    email: String,
+    gender: String,
+    status: String
+};
+
+const User = mongoose.model("User", userSchema);
 
 const app = express()
 var corsOptions = {
@@ -15,36 +30,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = 8083;
 
+app.use(express.static(__dirname + '/public'));
+
 app.post('/update-particular-user', (req, res) => {
-    console.log("daa--->", req.body)
-    const options = {
-        url: `https://gorest.co.in/public/v2/users/${req.body.id}`,
-        body: {
+    User.findOneAndUpdate(
+        { id: req.body.id }, // Query to find the document to update
+        {
             name: req.body.name,
             email: req.body.email,
             gender: req.body.gender,
             status: req.body.status
-        },
-        json: true,
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Accept-Charset': 'utf-8',
-            'User-Agent': 'my-reddit-client',
-            'Authorization': 'Bearer 7f59d3ebce77d2ff3b10911eda5c067a0a23a1d5eedbda330ae9c5243a13e270'
-        }
-    };
-
-    request(options, function (err, response, body) {
-        const check = body.hasOwnProperty('name');
-        console.log(body);
-        if (check) {
-            let json = JSON.parse(body);
-            res.status(200).send(json)
-        } else {
-            res.status(404).send(body)
-        }
-    });
+        }, // Update object with new values
+        { new: true } // Options to return the updated document
+    )
+        .then((updatedDoc) => {
+            console.log('Document updated:', updatedDoc);
+            res.send(updatedDoc)
+        })
+        .catch((err) => {
+            console.error(err);
+        });
 })
 
 app.get('/', (req, res) => {

@@ -1,6 +1,22 @@
 const express = require('express')
 const request = require('request');
 const cors = require('cors');
+const mongoose = require("mongoose");
+
+mongoose.connect("mongodb://localhost:27017/Gorest", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+
+const userSchema = {
+    id: String,
+    name: String,
+    email: String,
+    gender: String,
+    status: String
+};
+
+const User = mongoose.model("User", userSchema);
 const app = express()
 
 const port = 8081;
@@ -10,6 +26,8 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+app.use(express.static(__dirname + '/public'));
 
 app.get('/users-list', (req, res) => {
     const options = {
@@ -23,9 +41,23 @@ app.get('/users-list', (req, res) => {
     };
 
     request(options, function (err, response, body) {
-        let json = JSON.parse(body);
-        console.log(json);
-        res.status(200).send(json)
+        let dataArray = JSON.parse(body);
+        const promises = dataArray.map((data) => {
+            return User.findOneAndUpdate(
+                { id: data.id },
+                { $setOnInsert: data },
+                { upsert: true, new: true }
+            ).exec();
+        });
+
+        Promise.all(promises)
+            .then((results) => {
+                console.log('Objects checked and inserted:', results);
+                res.send(results)
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     });
 })
 

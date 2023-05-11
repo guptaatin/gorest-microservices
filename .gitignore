@@ -4,8 +4,10 @@
 /node_modules
 /.pnp
 .pnp.js
-/gorest-backend/node_modules
-/gorest-frontend/node_modules
+/gorest-backend/api-gateway/node_modules/
+/gorest-backend/particular-user/node_modules/
+/gorest-backend/update-particular-user/node_modules/
+/gorest-backend/users-list/node_modules/
 
 # testing
 /coverage
