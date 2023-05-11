@@ -4,8 +4,16 @@ const port = 9001;
 const server = gateway({
     routes: [
         {
-            prefix: '/users',
+            prefix: '/users-micro',
             target: 'http://localhost:8081/'
+        },
+        {
+            prefix: '/users-micro-particular',
+            target: 'http://localhost:8082/'
+        },
+        {
+            prefix: '/users-micro-update',
+            target: 'http://localhost:8083/'
         }
     ]
 })
