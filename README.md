@@ -10,4 +10,8 @@ b. particular-user(this folder contains the service for fetching the data of a p
 c. update-particular-user(this folder contains the service for updating any particular user in the collection users)
 d. api-gateway(this folder is the microservices folder where all the above three services are given their own configurations)
 
+Firstly install dependencies using npm install then npm start will be the command to start the services in all 4 backend modules.
+
 2. gorest-frontend is the frontend made on reactjs where home page lists all the users then on click of any user you can get the details of that user, if you want to update any information then you can perform that action also. I have used react-router-dom for this purpose.
+
+Firstly install dependencies using npm install then npm start will be the command to start the services in frontend.
