@@ -14,32 +14,30 @@ function UsersList() {
     }, [])
 
     return (
-        <div className="wrapper">
-            <table className="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map(v => {
-                        return (
-                            <tr onClick={() => navigate(`/users/${v.id}`)}>
-                                <th scope="row">{v.id}</th>
-                                <td>{v.name}</td>
-                                <td>{v.email}</td>
-                                <td>{v.gender}</td>
-                                <td>{v.status}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-            </table>
-        </div>
+        <table className="table table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.map(v => {
+                    return (
+                        <tr onClick={() => navigate(`/users/${v.id}`)}>
+                            <th scope="row">{v.id}</th>
+                            <td>{v.name}</td>
+                            <td>{v.email}</td>
+                            <td>{v.gender}</td>
+                            <td>{v.status}</td>
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </table>
     );
 }
 

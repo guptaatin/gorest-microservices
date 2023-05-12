@@ -7,8 +7,9 @@
   pointer-events: none;
 }
 
-.wrapper {
-  margin: '10px 10px';
+.row_wrap {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media (prefers-reduced-motion: no-preference) {

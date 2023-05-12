@@ -48,18 +48,22 @@ function ParticularUser() {
 
     return (
         <div className="wrapper">
-            <h4>Name: </h4><span><input value={userData.name} onChange={(e) => setUserData({ ...userData, name: e.target.value })} /></span>
-            <h4>Email: </h4><span><input value={userData.email} onChange={(e) => setUserData({ ...userData, email: e.target.value })} /></span>
+            <div className='row_wrap'><h4>Name: </h4><span><input value={userData.name} onChange={(e) => setUserData({ ...userData, name: e.target.value })} /></span></div>
+            <div className='row_wrap'><h4>Email: </h4><span><input value={userData.email} onChange={(e) => setUserData({ ...userData, email: e.target.value })} /></span></div>
+            <div className='row_wrap'>
             <h4>Gender: </h4>
             <select value={userData.gender} onChange={(e) => setUserData({ ...userData, gender: e.target.value })}>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
+            </div>
+            <div className='row_wrap'>
             <h4>Status: </h4>
             <select value={userData.status} onChange={(e) => setUserData({ ...userData, status: e.target.value })}>
                 <option value="active">Active</option>
                 <option value="inactive">InActive</option>
             </select>
+            </div>
             <button onClick={handleUpdate}>Update</button>
         </div>
     );
